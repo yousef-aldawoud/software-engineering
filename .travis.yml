@@ -1,0 +1,22 @@
+language: php
+php:
+- 7.2
+services:
+- docker
+env:
+- DOCKER_COMPOSE_VERSION=1.25.4
+before-install:
+- sudo rm /usr/local/bin/docker-compose
+- curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname
+  -s`-`uname -m` > docker-compose
+- chmod +x docker-compose
+- sudo mv docker-compose /usr/local/bin
+install:
+- sudo apt-get update
+before_script:
+- composer self-update
+- composer install --no-interaction
+- sudo systemctl start docker
+- sudo docker-compose up -d
+script:
+- sudo docker exec php php /var/www/html/vendor/bin/phpunit tests/
