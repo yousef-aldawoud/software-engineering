@@ -27,10 +27,3 @@ before_script:
 
 script:
 - sudo docker exec php php /var/www/html/vendor/bin/phpunit tests/
-
-deploy:
-  provider: heroku
-  app: software-engineering-app
-  api_key:
-    secure: d60fd96d-5105-4121-8c46-e81ab41314bb
-  on: master
